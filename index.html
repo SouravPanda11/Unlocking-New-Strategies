@@ -1,5 +1,6 @@
+<!-- ====================== index.html ====================== -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="auto">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -15,42 +16,10 @@
   <meta property="og:url" content="https://SouravPanda11.github.io/Unlocking-New-Strategies/" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Minimal, readable CSS with dark mode support -->
-  <style>
-    :root{
-      --bg:#ffffff;--fg:#111827;--muted:#6b7280;--link:#2563eb;--card:#f8fafc;--border:#e5e7eb;--code:#f3f4f6
-    }
-    @media (prefers-color-scheme: dark){
-      :root{--bg:#0b0f14;--fg:#e5e7eb;--muted:#9aa5b1;--link:#60a5fa;--card:#0f1720;--border:#1f2937;--code:#111827}
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,"Helvetica Neue",Arial,"Apple Color Emoji","Segoe UI Emoji"}
-    a{color:var(--link);text-decoration:none}
-    a:hover{text-decoration:underline}
-    .wrap{max-width:980px;margin:0 auto;padding:32px 20px}
-    header{display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-    .title{font-size:clamp(28px,3.2vw,44px);font-weight:800;line-height:1.15;margin:0}
-    .authors{margin:6px 0 0;font-size:18px;color:var(--muted)}
-    .badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
-    .btn{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);padding:10px 14px;border-radius:12px;font-weight:600}
-    .btn:hover{filter:brightness(1.05)}
-    .teaser{margin:28px 0;border-radius:16px;overflow:hidden;border:1px solid var(--border);background:var(--card)}
-    .teaser img{display:block;width:100%;height:auto}
-    section{margin:36px 0}
-    h2{font-size:26px;margin:0 0 12px}
-    .grid{display:grid;gap:18px}
-    .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-    @media (max-width:820px){.grid.cols-2{grid-template-columns:1fr}}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px}
-    code,pre{background:var(--code);border-radius:10px}
-    pre{padding:14px;overflow:auto}
-    .thumbs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-    .thumbs img{width:100%;height:auto;border-radius:12px;border:1px solid var(--border)}
-    footer{margin:40px 0;color:var(--muted);font-size:14px}
-    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
-  </style>
+  <!-- External CSS -->
+  <link rel="stylesheet" href="assets/styles.css" />
 
-  <!-- Schema.org JSON-LD (fill placeholders) -->
+  <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -64,7 +33,7 @@
     "url": "https://SouravPanda11.github.io/Unlocking-New-Strategies/",
     "image": "https://SouravPanda11.github.io/Unlocking-New-Strategies/assets/teaser.jpg",
     "datePublished": "2024-10-09",
-    "publisher": {"@type":"Organization","name":"Conference/Journal"}
+    "publisher": {"@type":"Organization","name":"IMOL Workshop @ NeurIPS 2024"}
   }
   </script>
 </head>
@@ -81,13 +50,15 @@
           <a class="btn" href="#bibtex">🔖 BibTeX</a>
         </div>
       </div>
+      <!-- Theme toggle button -->
+      <button class="btn theme" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark (L)">🌗 Theme</button>
     </header>
 
     <section id="abstract">
       <h2>Abstract</h2>
       <div class="card">
         <p>
-            We propose combining intrinsic exploration with extrinsic motivations to inspire RL agents to develop strategies at both macro and micro levels, enhancing adaptability.
+          We propose combining intrinsic exploration with extrinsic motivations to inspire RL agents to develop strategies at both macro and micro levels, enhancing adaptability.
         </p>
       </div>
     </section>
@@ -105,18 +76,79 @@
       <h2>Citation</h2>
       <div class="card">
         <button class="btn" id="copyBib">Copy BibTeX</button>
-        <pre class="mono" id="bib">
-            @inproceedings{
-            panda2024unlocking,
-            title={Unlocking New Strategies: Intrinsic Exploration for Evolving Macro and Micro Actions},
-            author={Sourav Panda and Aviral Srivastava and Jonathan Dodge},
-            booktitle={Intrinsically-Motivated and Open-Ended Learning Workshop @NeurIPS2024},
-            year={2024},
-            url={https://openreview.net/forum?id=yfAB7nWiFV}
-            }
-        </pre>
+        <pre class="mono" id="bib">@inproceedings{panda2024unlocking,
+  title={Unlocking New Strategies: Intrinsic Exploration for Evolving Macro and Micro Actions},
+  author={Sourav Panda and Aviral Srivastava and Jonathan Dodge},
+  booktitle={Intrinsically-Motivated and Open-Ended Learning Workshop @ NeurIPS 2024},
+  year={2024},
+  url={https://openreview.net/forum?id=yfAB7nWiFV}
+}</pre>
       </div>
     </section>
+
+    <footer>
+      <p>© <span id="year"></span> Sourav Panda • Last updated <span id="updated"></span>.</p>
+    </footer>
   </div>
+
+  <script>
+    // Year + last updated
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('updated').textContent = new Date(document.lastModified).toLocaleDateString();
+
+    // Copy BibTeX
+    const bibBtn = document.getElementById('copyBib');
+    if (bibBtn) bibBtn.addEventListener('click', async () => {
+      const text = document.getElementById('bib').innerText.trim();
+      try { await navigator.clipboard.writeText(text); alert('BibTeX copied!'); } catch { alert('Copy failed.'); }
+    });
+
+    // Theme toggle logic with persistence
+    const STORAGE_KEY = 'pref-theme';
+    const root = document.documentElement;
+
+    function applyTheme(mode){
+      // mode: 'light' | 'dark' | 'auto'
+      root.setAttribute('data-theme', mode);
+      document.getElementById('themeToggle').textContent = mode === 'dark' ? '🌞 Light' : '🌙 Dark';
+    }
+
+    function getSystemPref(){
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    function initTheme(){
+      const saved = localStorage.getItem(STORAGE_KEY);
+      const mode = saved || 'auto';
+      if (mode === 'auto') applyTheme(getSystemPref());
+      else applyTheme(mode);
+    }
+
+    initTheme();
+
+    // Toggle between light/dark; hold Alt while clicking to set Auto
+    document.getElementById('themeToggle').addEventListener('click', (e) => {
+      const current = root.getAttribute('data-theme');
+      if (e.altKey){
+        localStorage.setItem(STORAGE_KEY, 'auto');
+        applyTheme(getSystemPref());
+        return;
+      }
+      const next = current === 'dark' ? 'light' : 'dark';
+      localStorage.setItem(STORAGE_KEY, next);
+      applyTheme(next);
+    });
+
+    // Keyboard shortcut: press "L" to toggle
+    window.addEventListener('keydown', (e)=>{
+      if (e.key.toLowerCase() === 'l') document.getElementById('themeToggle').click();
+    });
+
+    // Watch system theme changes if in auto
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    mq.addEventListener?.('change', ()=>{
+      if ((localStorage.getItem(STORAGE_KEY) || 'auto') === 'auto') applyTheme(getSystemPref());
+    });
+  </script>
 </body>
 </html>
