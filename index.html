@@ -21,26 +21,28 @@
 </head>
 <body>
   <div class="wrap">
-    <header>
-      <div class="centered">
+    <header class="hero">
+      <!-- fixed theme toggle top-right -->
+      <button class="btn theme" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark (L)">🌙 Dark</button>
+
+      <div class="hero-inner">
         <h1 class="title">Unlocking New Strategies: Intrinsic Exploration for Evolving Macro and Micro Actions</h1>
-        <p class="authors">Sourav Panda, Aviral Srivastava, Jonathan Dodge<br /><span style="font-size:14px">The Pennsylvania State University • IMOL Workshop @ NeurIPS2024</span></p>
-        <div class="badges">
+        <p class="authors">
+          Sourav Panda, Aviral Srivastava, Jonathan Dodge<br />
+          <span class="meta">The Pennsylvania State University • IMOL Workshop @ NeurIPS2024</span>
+        </p>
+        <div class="badges center">
           <a class="btn" href="#abstract">Abstract</a>
           <a class="btn" href="assets/IMOL_2024_camera_ready.pdf" target="_blank">📄 Paper (PDF)</a>
           <a class="btn" href="https://openreview.net/pdf?id=yfAB7nWiFV" target="_blank">OpenReview</a>
           <a class="btn" href="#bibtex">🔖 BibTeX</a>
         </div>
       </div>
-      <!-- Theme toggle button at top right -->
-      <div class="theme-container">
-        <button class="btn theme" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark (L)">🌙 Dark</button>
-      </div>
     </header>
 
-    <section id="abstract" class="centered-text">
-      <h2>Abstract</h2>
-      <div class="card">
+    <section id="abstract">
+      <h2 class="center">Abstract</h2>
+      <div class="card lead">
         <p>
           We propose combining intrinsic exploration with extrinsic motivations to inspire RL agents to develop strategies at both macro and micro levels, enhancing adaptability.
         </p>
@@ -48,25 +50,39 @@
     </section>
 
     <section id="results">
-      <h2 class="centered">Results</h2>
+      <h2 class="center">Results</h2>
+
       <div class="results-vertical">
+
         <div class="result-item">
-          <img src="assets/Initial Table.jpg" alt="Initial Table" />
-          <p class="result-caption">Initial knowledge base of macro-actions and their corresponding micro-actions.</p>
+          <img src="assets/Initial Table.jpg" alt="Initial Table">
+          <div class="result-text">
+            <h3>Initial Knowledge Base</h3>
+            <p>Initial knowledge base of macro-actions and their corresponding micro-actions.</p>
+          </div>
         </div>
+
         <div class="result-item">
-          <img src="assets/Updated Table.jpg" alt="Updated Table" />
-          <p class="result-caption">Knowledge base after learning a new macro-action.</p>
+          <img src="assets/Updated Table.jpg" alt="Updated Table">
+          <div class="result-text">
+            <h3>After Learning a Macro-Action</h3>
+            <p>Knowledge base after learning a new macro-action.</p>
+          </div>
         </div>
+
         <div class="result-item">
-          <img src="assets/Evolved Table.jpg" alt="Evolved Table" />
-          <p class="result-caption">Knowledge base after discovering new micro-actions.</p>
+          <img src="assets/Evolved Table.jpg" alt="Evolved Table">
+          <div class="result-text">
+            <h3>After Discovering Micro-Actions</h3>
+            <p>Knowledge base after discovering new micro-actions.</p>
+          </div>
         </div>
+
       </div>
     </section>
 
-    <section id="bibtex" class="centered-text">
-      <h2>Citation</h2>
+    <section id="bibtex">
+      <h2 class="center">Citation</h2>
       <div class="card">
         <button class="btn" id="copyBib">Copy BibTeX</button>
         <pre class="mono" id="bib">@inproceedings{panda2024unlocking,
@@ -96,30 +112,29 @@
       try { await navigator.clipboard.writeText(text); alert('BibTeX copied!'); } catch { alert('Copy failed.'); }
     });
 
-    // Theme toggle logic with persistence
+    // Theme toggle (default LIGHT + persistence)
     const STORAGE_KEY = 'pref-theme';
     const root = document.documentElement;
 
     function applyTheme(mode){
       root.setAttribute('data-theme', mode);
-      document.getElementById('themeToggle').textContent = mode === 'dark' ? '🌞 Light' : '🌙 Dark';
+      document.getElementById('themeToggle').textContent = (mode === 'dark') ? '🌞 Light' : '🌙 Dark';
     }
 
-    function initTheme(){
+    (function initTheme(){
       const saved = localStorage.getItem(STORAGE_KEY);
-      const mode = saved || 'light'; // Default is light now
+      const mode = saved || 'light';
       applyTheme(mode);
-    }
+    })();
 
-    initTheme();
-
-    document.getElementById('themeToggle').addEventListener('click', () => {
+    document.getElementById('themeToggle').addEventListener('click', (e) => {
       const current = root.getAttribute('data-theme');
       const next = current === 'dark' ? 'light' : 'dark';
       localStorage.setItem(STORAGE_KEY, next);
       applyTheme(next);
     });
 
+    // Keyboard toggle
     window.addEventListener('keydown', (e)=>{
       if (e.key.toLowerCase() === 'l') document.getElementById('themeToggle').click();
     });
