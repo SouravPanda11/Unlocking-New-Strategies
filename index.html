@@ -1,6 +1,6 @@
 <!-- ====================== index.html ====================== -->
 <!DOCTYPE html>
-<html lang="en" data-theme="auto">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -18,29 +18,11 @@
 
   <!-- External CSS -->
   <link rel="stylesheet" href="assets/styles.css" />
-
-  <!-- Schema.org JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ScholarlyArticle",
-    "headline": "Unlocking New Strategies: Intrinsic Exploration for Evolving Macro and Micro Actions",
-    "author": [
-      {"@type":"Person","name":"Sourav Panda","affiliation":"The Pennsylvania State University"},
-      {"@type":"Person","name":"Aviral Srivastava","affiliation":"The Pennsylvania State University"},
-      {"@type":"Person","name":"Jonathan Dodge","affiliation":"The Pennsylvania State University"}
-    ],
-    "url": "https://SouravPanda11.github.io/Unlocking-New-Strategies/",
-    "image": "https://SouravPanda11.github.io/Unlocking-New-Strategies/assets/teaser.jpg",
-    "datePublished": "2024-10-09",
-    "publisher": {"@type":"Organization","name":"IMOL Workshop @ NeurIPS 2024"}
-  }
-  </script>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <div>
+      <div class="centered">
         <h1 class="title">Unlocking New Strategies: Intrinsic Exploration for Evolving Macro and Micro Actions</h1>
         <p class="authors">Sourav Panda, Aviral Srivastava, Jonathan Dodge<br /><span style="font-size:14px">The Pennsylvania State University • IMOL Workshop @ NeurIPS2024</span></p>
         <div class="badges">
@@ -50,11 +32,13 @@
           <a class="btn" href="#bibtex">🔖 BibTeX</a>
         </div>
       </div>
-      <!-- Theme toggle button -->
-      <button class="btn theme" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark (L)">🌗 Theme</button>
+      <!-- Theme toggle button at top right -->
+      <div class="theme-container">
+        <button class="btn theme" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark (L)">🌙 Dark</button>
+      </div>
     </header>
 
-    <section id="abstract">
+    <section id="abstract" class="centered-text">
       <h2>Abstract</h2>
       <div class="card">
         <p>
@@ -64,15 +48,24 @@
     </section>
 
     <section id="results">
-      <h2>Results</h2>
-      <div class="thumbs">
-        <img src="assets/Initial Table.jpg" alt="Initial Table" />
-        <img src="assets/Updated Table.jpg" alt="Updated Table" />
-        <img src="assets/Evolved Table.jpg" alt="Evolved Table" />
+      <h2 class="centered">Results</h2>
+      <div class="results-vertical">
+        <div class="result-item">
+          <img src="assets/Initial Table.jpg" alt="Initial Table" />
+          <p class="result-caption">Initial knowledge base of macro-actions and their corresponding micro-actions.</p>
+        </div>
+        <div class="result-item">
+          <img src="assets/Updated Table.jpg" alt="Updated Table" />
+          <p class="result-caption">Knowledge base after learning a new macro-action.</p>
+        </div>
+        <div class="result-item">
+          <img src="assets/Evolved Table.jpg" alt="Evolved Table" />
+          <p class="result-caption">Knowledge base after discovering new micro-actions.</p>
+        </div>
       </div>
     </section>
 
-    <section id="bibtex">
+    <section id="bibtex" class="centered-text">
       <h2>Citation</h2>
       <div class="card">
         <button class="btn" id="copyBib">Copy BibTeX</button>
@@ -108,46 +101,27 @@
     const root = document.documentElement;
 
     function applyTheme(mode){
-      // mode: 'light' | 'dark' | 'auto'
       root.setAttribute('data-theme', mode);
       document.getElementById('themeToggle').textContent = mode === 'dark' ? '🌞 Light' : '🌙 Dark';
     }
 
-    function getSystemPref(){
-      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-
     function initTheme(){
       const saved = localStorage.getItem(STORAGE_KEY);
-      const mode = saved || 'auto';
-      if (mode === 'auto') applyTheme(getSystemPref());
-      else applyTheme(mode);
+      const mode = saved || 'light'; // Default is light now
+      applyTheme(mode);
     }
 
     initTheme();
 
-    // Toggle between light/dark; hold Alt while clicking to set Auto
-    document.getElementById('themeToggle').addEventListener('click', (e) => {
+    document.getElementById('themeToggle').addEventListener('click', () => {
       const current = root.getAttribute('data-theme');
-      if (e.altKey){
-        localStorage.setItem(STORAGE_KEY, 'auto');
-        applyTheme(getSystemPref());
-        return;
-      }
       const next = current === 'dark' ? 'light' : 'dark';
       localStorage.setItem(STORAGE_KEY, next);
       applyTheme(next);
     });
 
-    // Keyboard shortcut: press "L" to toggle
     window.addEventListener('keydown', (e)=>{
       if (e.key.toLowerCase() === 'l') document.getElementById('themeToggle').click();
-    });
-
-    // Watch system theme changes if in auto
-    const mq = window.matchMedia('(prefers-color-scheme: dark)');
-    mq.addEventListener?.('change', ()=>{
-      if ((localStorage.getItem(STORAGE_KEY) || 'auto') === 'auto') applyTheme(getSystemPref());
     });
   </script>
 </body>
